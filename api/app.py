@@ -1,10 +1,12 @@
-import os
 from flask import Flask, render_template, request, send_file
 import yt_dlp
 import re
 from io import BytesIO
+from pathlib import Path
 
 app = Flask(__name__)
+# Update template directory for Vercel
+app.template_folder = str(Path(__file__).parent.parent / "templates")
 
 # Regular expressions to extract video IDs from YouTube URLs (including Shorts) and Instagram URLs
 YOUTUBE_SHORTS_REGEX = r'https:\/\/youtube\.com\/shorts\/([a-zA-Z0-9_-]+)\?'
@@ -15,26 +17,25 @@ INSTAGRAM_REGEX = r'https:\/\/www\.instagram\.com\/reel\/([a-zA-Z0-9_-]+)\/'
 def home():
     video_id = None
     download_link = None
-    video_type = None  # To track if it's YouTube or Instagram
+    video_type = None
 
     if request.method == 'POST':
         url = request.form['video_url']
 
-        # Extract video ID from YouTube or Instagram URL
         match_youtube_shorts = re.search(YOUTUBE_SHORTS_REGEX, url)
         match_youtube = re.search(YOUTUBE_REGEX, url)
         match_instagram = re.search(INSTAGRAM_REGEX, url)
 
         if match_youtube_shorts:
-            video_id = match_youtube_shorts.group(1)  # For YouTube Shorts
+            video_id = match_youtube_shorts.group(1)
             video_type = 'youtube'
             download_link = url
         elif match_youtube:
-            video_id = match_youtube.group(2) or match_youtube.group(3) or match_youtube.group(4)  # For regular YouTube
+            video_id = match_youtube.group(2) or match_youtube.group(3) or match_youtube.group(4)
             video_type = 'youtube'
             download_link = url
         elif match_instagram:
-            video_id = match_instagram.group(1)  # For Instagram Reels
+            video_id = match_instagram.group(1)
             video_type = 'instagram'
             download_link = url
         else:
@@ -52,24 +53,21 @@ def download_video():
         }
 
         with yt_dlp.YoutubeDL(ydl_opts) as ydl:
-            # Extract video information
             info_dict = ydl.extract_info(url, download=False)
             video_url = info_dict['url']
             video_title = info_dict.get('title', 'video').replace(" ", "_")
             video_ext = info_dict.get('ext', 'mp4')
 
-            # Stream the video in chunks
             def generate():
                 with yt_dlp.YoutubeDL() as inner_ydl:
                     response = inner_ydl.urlopen(video_url)
-                    chunk_size = 1024 * 1024  # 1 MB
+                    chunk_size = 1024 * 1024
                     while True:
                         chunk = response.read(chunk_size)
                         if not chunk:
                             break
                         yield chunk
 
-            # Return the video as a streamed response
             return app.response_class(
                 generate(),
                 mimetype=f"video/{video_ext}",
@@ -80,7 +78,11 @@ def download_video():
     except Exception as e:
         return f"Error: {str(e)}"
 
-# Vercel needs to recognize the app as a WSGI callable
-def handler(request):
-    return app.wsgi_app(request)
+# This is the correct way to set up the Vercel handler
+@app.route('/<path:path>')
+def catch_all(path):
+    return app.send_static_file(path)
 
+# For local development
+if __name__ == '__main__':
+    app.run(debug=True)
