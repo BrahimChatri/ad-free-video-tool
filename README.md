@@ -22,7 +22,7 @@ To run the application, you will need to have the following installed:
 ### 1. Clone the repository
 
 ```bash
-git clone https://github.com/your-username/watch-without-ads.git
+git clone https://github.com/BrahimChatri/ad-free-video-tool.git
 cd watch-without-ads
 ```
 
