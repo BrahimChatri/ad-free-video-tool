@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, send_file
+from flask import Flask, render_template, request, send_file, Response
 import yt_dlp
 import re
 from io import BytesIO
@@ -6,9 +6,10 @@ from pathlib import Path
 
 app = Flask(__name__)
 # Update template directory for Vercel
-app.template_folder = str(Path(__file__).parent.parent / "templates")
+template_dir = Path(__file__).parent.parent / "templates"
+app.template_folder = str(template_dir)
 
-# Regular expressions to extract video IDs from YouTube URLs (including Shorts) and Instagram URLs
+# Your existing regex patterns
 YOUTUBE_SHORTS_REGEX = r'https:\/\/youtube\.com\/shorts\/([a-zA-Z0-9_-]+)\?'
 YOUTUBE_REGEX = r'(?:https?:\/\/(?:www\.)?youtube\.com\/(?:[^\/]+\/[^\?]+|(?:v|e(?:mbed)?)\/([^\/\?\&]+)|.*v=([^\/\?\&]+))|youtu\.be\/([^\/\?\&]+))'
 INSTAGRAM_REGEX = r'https:\/\/www\.instagram\.com\/reel\/([a-zA-Z0-9_-]+)\/'
@@ -20,7 +21,7 @@ def home():
     video_type = None
 
     if request.method == 'POST':
-        url = request.form['video_url']
+        url = request.form.get('video_url', '')
 
         match_youtube_shorts = re.search(YOUTUBE_SHORTS_REGEX, url)
         match_youtube = re.search(YOUTUBE_REGEX, url)
@@ -45,7 +46,10 @@ def home():
 
 @app.route('/download', methods=['POST'])
 def download_video():
-    url = request.form['video_url']
+    url = request.form.get('video_url', '')
+    if not url:
+        return "No URL provided", 400
+
     try:
         ydl_opts = {
             'format': 'best',
@@ -68,7 +72,7 @@ def download_video():
                             break
                         yield chunk
 
-            return app.response_class(
+            return Response(
                 generate(),
                 mimetype=f"video/{video_ext}",
                 headers={
@@ -76,13 +80,16 @@ def download_video():
                 }
             )
     except Exception as e:
-        return f"Error: {str(e)}"
+        return f"Error: {str(e)}", 500
 
-# This is the correct way to set up the Vercel handler
+# For static files
 @app.route('/<path:path>')
-def catch_all(path):
-    return app.send_static_file(path)
+def static_proxy(path):
+    try:
+        return app.send_static_file(path)
+    except:
+        return app.send_static_file('index.html')
 
-# For local development
+# For development only
 if __name__ == '__main__':
     app.run(debug=True)
