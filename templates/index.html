@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Embed and Download Video</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <div class="embed-container">
+        <h1 class="embed-heading">Watch YouTube without ads or Instagram Video and download </h1>
+        <p class="embed-description">
+            Enter a valid YouTube or Instagram URL below to watch the video without ads or download it directly.
+            <br/> Click on Watch to whatch video without ads or on Download to download it directly .
+        </p>
+
+        <!-- Video URL Input -->
+        <div class="input-container">
+            <input type="text" id="video_url" name="video_url" class="embed-input" placeholder="Enter YouTube or Instagram URL" value="{{ download_link if download_link else '' }}" autocomplete="off">
+        </div>
+
+        <!-- Buttons for Embed and Download -->
+        <div class="form-buttons">
+            <!-- Form for embedding video -->
+            <form method="POST" action="/">
+                <input type="hidden" name="video_url" id="embed_url">
+                <button type="submit" class="embed-button" onclick="setEmbedUrl()">Embed Video</button>
+            </form>
+
+            <!-- Form for downloading video -->
+            <form method="POST" action="/download">
+                <input type="hidden" name="video_url" id="download_url">
+                <button type="submit" class="embed-button" onclick="setDownloadUrl()">Download Video</button>
+            </form>
+        </div>
+
+        <!-- Display video if URL is valid -->
+        {% if video_id %}
+        <div class="embed-video-container">
+            {% if video_type == 'youtube' %}
+            <iframe src="https://www.youtube.com/embed/{{ video_id }}" frameborder="0" allowfullscreen></iframe>
+            {% elif video_type == 'instagram' %}
+            <iframe src="https://www.instagram.com/reel/{{ video_id }}/embed" frameborder="0" allowfullscreen></iframe>
+            {% endif %}
+        </div>
+        {% endif %}
+    </div>
+
+    <!-- JavaScript to sync input value for buttons -->
+    <script>
+        function setEmbedUrl() {
+            const videoUrl = document.getElementById('video_url').value;
+            document.getElementById('embed_url').value = videoUrl;
+        }
+
+        function setDownloadUrl() {
+            const videoUrl = document.getElementById('video_url').value;
+            document.getElementById('download_url').value = videoUrl;
+        }
+    </script>
+</body>
+</html>
