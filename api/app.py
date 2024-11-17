@@ -1,6 +1,8 @@
+import os
 from flask import Flask, render_template, request, send_file
 import yt_dlp
 import re
+from io import BytesIO
 
 app = Flask(__name__)
 
@@ -78,6 +80,7 @@ def download_video():
     except Exception as e:
         return f"Error: {str(e)}"
 
+# Vercel needs to recognize the app as a WSGI callable
+def handler(request):
+    return app.wsgi_app(request)
 
-if __name__ == "__main__":
-    app.run(debug=True)
