@@ -1,7 +1,6 @@
 from flask import Flask, render_template, request, send_file, Response
 import yt_dlp
 import re
-from io import BytesIO
 from pathlib import Path
 
 app = Flask(__name__)
@@ -90,6 +89,6 @@ def static_proxy(path):
     except:
         return app.send_static_file('index.html')
 
-# For development only
-if __name__ == '__main__':
-    app.run(debug=True)
+# # For development only
+# if __name__ == '__main__':
+#     app.run(debug=True)
