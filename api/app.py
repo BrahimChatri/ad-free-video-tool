@@ -111,5 +111,5 @@ def static_proxy(path):
         return app.send_static_file('index.html')
 
 # For development only
-if __name__ == '__main__':
-    app.run(debug=True)
+# if __name__ == '__main__':
+#     app.run(debug=True)
