@@ -59,13 +59,21 @@ The backend uses `yt-dlp`, a command-line program to download videos from YouTub
 
 ```
 /watch-without-ads
+    /api 
+        /app.py           # The main Python file running the Flask app
     /static
         /styles.css       # Custom styles for the application
+        /playlist.cdd     # Custom styles for  /playlist \
+        /backgroud.svg    # Background image 
+        /favicon.ico      # Favicon 
+        /github-logo.svg  # Github logo for the footer
     /templates
         index.html        # Main HTML page with video streaming and download functionality
-    app.py                # The main Python file running the Flask app
+        playlist.html     # Main HTML for /playlist page
     requirements.txt      # List of Python dependencies
     README.md             # This file
+    LICENSE               # MIT License file 
+    vercel.json           # Configuration file for vercel deployments
 ```
 
 ## Troubleshooting
