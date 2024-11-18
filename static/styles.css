@@ -61,8 +61,8 @@ body {
 
 /* Input Field Styling */
 .embed-input {
-    padding: 0.5rem;
-    width: 100%;
+    padding: 0.6rem;
+    width: 115%;
     max-width: 500px;
     border-radius: 5px;
     border: 1px solid #444;
@@ -79,7 +79,7 @@ body {
     color: #fff;
     border: none;
     cursor: pointer;
-    margin-bottom: 2rem;
+    margin-bottom: 1.5rem;
     font-size: 1rem;
 }
 
@@ -151,4 +151,25 @@ body {
     border: 1px solid #f5c6cb;
     margin-bottom: 15px;
     border-radius: 5px;
+}
+footer {
+    position: relative;
+    bottom: 0;
+    width: 100%;
+    background-color: #dfaeae;
+    text-align: center;
+    padding: 10px;
+    font-size: 16px; /* Adjust the font size */
+    color: #edecf5; /* Change to your preferred text color */
+}
+
+footer a {
+    color: #ffffff; /* Change link color */
+    text-decoration: none;
+    font-size: 18px; /* Adjust font size for links */
+}
+
+footer a:hover {
+    text-decoration: underline;
+    color: #005a7a; /* Change link hover color */
 }
