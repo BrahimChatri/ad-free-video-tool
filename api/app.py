@@ -3,8 +3,8 @@ import yt_dlp
 import re
 from pathlib import Path
 
-app = Flask(__name__)
 # Update template directory for Vercel
+app = Flask(__name__, static_folder='../static')
 template_dir = Path(__file__).parent.parent / "templates"
 app.template_folder = str(template_dir)
 
