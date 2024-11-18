@@ -4,8 +4,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Watch and Download Video</title>
+    <title>Watch and Download Videos</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+
     <!-- Open Graph Meta Tags -->
     <meta property="og:title" content="Watch and Download Videos Without Ads" />
     <meta property="og:description"
@@ -21,21 +22,26 @@
     <meta name="twitter:image" content="{{ url_for('static', filename='images/preview-image.jpg') }}" />
     <meta name="twitter:card" content="summary_large_image" />
     <link rel="icon" href="{{ url_for('static', filename='favicon.ico') }}" type="image/x-icon">
-
 </head>
 
 <body>
     <div class="embed-container">
-        <h1 class="embed-heading">Watch YouTube without ads or Instagram Video and download </h1>
+        <h1 class="embed-heading">Watch YouTube or Instagram Videos Without Ads</h1>
         <p class="embed-description">
             Enter a valid YouTube or Instagram URL below to watch the video without ads or download it directly.
             <br />
-            Click on Watch to watch the video without ads (this feature is always working) or on Download to download it
-            directly.
+            Click <strong>Watch Video</strong> to view the video without ads, or <strong>Download</strong> to save it.
+            <br /><br />
+            <strong>If you want to watch a full playlist, click on "Watch Playlist".</strong>
             <br />
-            <strong>Note:</strong> If the download fails, please try again later as we are working to fix some issues.
+            <strong>Note:</strong> If the download fails, please try again later as we are improving the service.
         </p>
 
+
+        <!-- "Watch Playlist" Button -->
+        <div class="form-buttons">
+            <a href="/playlist" class="Playlist-button">Watch Playlist</a>
+        </div>
 
         <!-- Display Error Message if any -->
         {% if error %}
@@ -51,22 +57,22 @@
                 autocomplete="off">
         </div>
 
-        <!-- Buttons for Embed and Download -->
+        <!-- Buttons for Watch and Download -->
         <div class="form-buttons">
-            <!-- Form for embedding video -->
+            <!-- Watch Video -->
             <form method="POST" action="/">
                 <input type="hidden" name="video_url" id="embed_url">
                 <button type="submit" class="embed-button" onclick="setEmbedUrl()">Watch Video</button>
             </form>
 
-            <!-- Form for downloading video -->
+            <!-- Download Video -->
             <form method="POST" action="/download">
                 <input type="hidden" name="video_url" id="download_url">
                 <button type="submit" class="embed-button" onclick="setDownloadUrl()">Download Video</button>
             </form>
         </div>
 
-        <!-- Display video if URL is valid -->
+        <!-- Display Embedded Video -->
         {% if video_id %}
         <div class="embed-video-container">
             {% if video_type == 'youtube' %}
@@ -77,28 +83,32 @@
         </div>
         {% endif %}
     </div>
+
+    <!-- Footer -->
     <footer style="text-align: center; color: white; padding: 15px; background-color: #121212;">
         <p>
             © 2024 - Brahim |
             <a href="https://github.com/BrahimChatri" target="_blank" style="color: white; text-decoration: none;">
-                <img src="{{ url_for('static', filename='github-logo.svg') }}" alt="GitHub" style="width: 28px; vertical-align: middle; margin-right: 15px;">
+                <img src="{{ url_for('static', filename='github-logo.svg') }}" alt="GitHub"
+                    style="width: 28px; vertical-align: middle; margin-right: 15px;">
             </a>
         </p>
     </footer>
-    
-    <!-- JavaScript to sync input value for buttons -->
+
+    <!-- JavaScript -->
     <script>
+        // Sync input value for Watch Video
         function setEmbedUrl() {
-            const videoUrl = document.getElementById('video_url').value;
+            const videoUrl = document.getElementById('video_url').value.trim();
             document.getElementById('embed_url').value = videoUrl;
         }
 
+        // Sync input value for Download Video
         function setDownloadUrl() {
-            const videoUrl = document.getElementById('video_url').value;
+            const videoUrl = document.getElementById('video_url').value.trim();
             document.getElementById('download_url').value = videoUrl;
         }
     </script>
-
 </body>
 
 </html>

@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Watch Playlist Without Ads</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='Playlist.css') }}">
+
+    <!-- Open Graph Meta Tags -->
+    <meta property="og:title" content="Watch Playlists Without Ads" />
+    <meta property="og:description"
+        content="Enter a YouTube Playlist URL to watch the videos without ads or download them directly. Easy and fast!" />
+    <meta property="og:image" content="{{ url_for('static', filename='images/preview-image.jpg') }}" />
+    <meta property="og:url" content="{{ request.url }}" />
+    <meta property="og:type" content="website" />
+
+    <!-- Twitter Card Meta Tags -->
+    <meta name="twitter:title" content="Watch Playlists Without Ads" />
+    <meta name="twitter:description"
+        content="Enter a YouTube Playlist URL to watch the videos without ads or download them directly. Easy and fast!" />
+    <meta name="twitter:image" content="{{ url_for('static', filename='images/preview-image.jpg') }}" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <link rel="icon" href="{{ url_for('static', filename='favicon.ico') }}" type="image/x-icon">
+</head>
+
+<body>
+    <div class="embed-container">
+        <h1 class="embed-heading">Watch Your YouTube Playlist Without Ads</h1>
+        <p class="embed-description">
+            Enter a valid YouTube Playlist URL below to watch videos without ads.
+            <br /><br />
+            After entering the URL, click on "Watch Playlist" to view the entire playlist directly.
+            <br /><br />
+            Once the video finishes, the next one in the playlist will automatically start playing, without any
+            interruptions from ads.
+        </p>
+
+
+        <!-- Video URL Input Form -->
+        <form method="POST" action="/playlist">
+            <div class="input-container">
+                <input type="text" id="video_url" name="video_url" class="embed-input"
+                    placeholder="Enter YouTube Playlist URL" autocomplete="off">
+            </div>
+            <div class="form-buttons">
+                <button type="submit" class="embed-button">Watch Playlist</button>
+            </div>
+        </form>
+
+        <!-- Display Error Message if any -->
+        {% if error %}
+        <div class="error-message">
+            <strong>Error:</strong> {{ error }}
+        </div>
+        {% endif %}
+
+        <!-- Display Playlist Embed if Playlist ID is Valid -->
+        {% if playlist_id %}
+        <div class="embed-video-container">
+            <iframe src="https://www.youtube.com/embed/videoseries?list={{ playlist_id }}" frameborder="0"
+                allowfullscreen>
+            </iframe>
+        </div>
+        {% endif %}
+    </div>
+
+    <!-- Footer -->
+    <footer style="text-align: center; color: white; padding: 15px; background-color: #121212;">
+        <p>
+            © 2024 - Brahim |
+            <a href="https://github.com/BrahimChatri" target="_blank" style="color: white; text-decoration: none;">
+                <img src="{{ url_for('static', filename='github-logo.svg') }}" alt="GitHub"
+                    style="width: 28px; vertical-align: middle; margin-right: 15px;">
+            </a>
+        </p>
+    </footer>
+</body>
+
+</html>

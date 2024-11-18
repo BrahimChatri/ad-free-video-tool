@@ -1,36 +1,18 @@
 /* Global Styles */
 body {
-    /*background-color: #121212;*/
-    /* Dark background */
     color: white;
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
     padding-top: 20px;
     min-height: 100vh;
-    /* Ensure body covers full height */
-
     background-image: url('background.svg');
-    /* Ensure path is correct */
     background-repeat: no-repeat;
     background-size: cover;
-    /* Adjust background size to cover the page */
     background-position: center center;
-    /* Center the background image */
     height: 100%;
-    /* Ensures the body fills the screen */
-
-    /* Prevent elements from covering the background */
     position: relative;
     z-index: 0;
-    /* Set lower z-index for body background */
-}
-
-.container {
-    max-width: 800px;
-    margin: 0 auto;
-    padding: 20px;
-    text-align: center;
 }
 
 /* Embed Video Container */
@@ -39,7 +21,6 @@ body {
     flex-direction: column;
     align-items: center;
     padding: 2rem;
-    /*background-color: #000000;*/
     color: #ffffff;
     min-height: 100vh;
 }
@@ -62,7 +43,7 @@ body {
 /* Input Field Styling */
 .embed-input {
     padding: 0.6rem;
-    width: 150%;
+    width: 115%;
     max-width: 500px;
     border-radius: 5px;
     border: 1px solid #444;
@@ -81,20 +62,6 @@ body {
     cursor: pointer;
     margin-bottom: 1.5rem;
     font-size: 1rem;
-}
-
-.Playlist-button {
-    padding: 0.5rem 1rem;
-    border-radius: 5px;
-    background-color: #069446;
-    color: #fff;
-    border: none;
-    cursor: pointer;
-    margin-bottom: 1.5rem;
-    /* Adds space below the button */
-    font-size: 1rem;
-    display: inline-block;
-    /* Ensures it's treated as a block element for spacing */
 }
 
 .embed-button:hover {
@@ -132,7 +99,6 @@ body {
     width: 70%;
     max-width: 100%;
     padding-bottom: 56.25%;
-    /* Maintain 16:9 aspect ratio */
     margin-top: 2rem;
 }
 
@@ -141,7 +107,6 @@ body {
     top: 0;
     left: 50%;
     transform: translateX(-50%);
-    /* Center horizontally */
     width: 100%;
     height: 100%;
     border-radius: 10px;
@@ -151,9 +116,7 @@ body {
 @media (max-width: 768px) {
     .embed-video-container iframe {
         width: 130%;
-        /* Increase width for mobile */
         height: 130%;
-        /* Increase height for mobile */
     }
 }
 
@@ -175,21 +138,16 @@ footer {
     text-align: center;
     padding: 10px;
     font-size: 16px;
-    /* Adjust the font size */
     color: #edecf5;
-    /* Change to your preferred text color */
 }
 
 footer a {
     color: #ffffff;
-    /* Change link color */
     text-decoration: none;
     font-size: 18px;
-    /* Adjust font size for links */
 }
 
 footer a:hover {
     text-decoration: underline;
     color: #005a7a;
-    /* Change link hover color */
 }

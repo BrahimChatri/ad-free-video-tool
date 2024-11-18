@@ -40,7 +40,7 @@ def home():
             video_type = 'instagram'
             download_link = url
         else:
-            error = "Invalid URL. Please enter a valid YouTube or Instagram URL."
+            error = "Invalid URL. Please enter a valid URL."
 
     return render_template('index.html', video_id=video_id, download_link=download_link, video_type=video_type, error=error)
 
@@ -84,6 +84,23 @@ def download_video():
         # Pass the error to the template for display
         error_message = f"Error: {str(e)}"
         return render_template('index.html', error=error_message), 500
+    
+# root to watch full playlist    
+@app.route('/playlist', methods=['GET', 'POST'])
+def playlist():
+    playlist_id = None
+    error = None
+    if request.method == 'POST':
+        playlist_url = request.form.get('video_url', '').strip()
+        if "youtube.com/playlist" in playlist_url and "list=" in playlist_url:
+            # Extract playlist ID
+            playlist_id = playlist_url.split("list=")[-1].split('&')[0]
+        else:
+            # Handle invalid playlist URL
+            error = "Invalid Playlist URL. Please enter a valid YouTube playlist link."
+
+    return render_template('playlist.html', playlist_id=playlist_id, error=error)
+
 
 # For static files
 @app.route('/<path:path>')
@@ -93,6 +110,6 @@ def static_proxy(path):
     except:
         return app.send_static_file('index.html')
 
-# # For development only
-# if __name__ == '__main__':
-#     app.run(debug=True)
+# For development only
+if __name__ == '__main__':
+    app.run(debug=True)
