@@ -18,6 +18,7 @@ def home():
     video_id = None
     download_link = None
     video_type = None
+    error = None  # Variable to store error messages
 
     if request.method == 'POST':
         url = request.form.get('video_url', '')
@@ -39,20 +40,21 @@ def home():
             video_type = 'instagram'
             download_link = url
         else:
-            return "Invalid URL. Please enter a valid YouTube or Instagram URL."
+            error = "Invalid URL. Please enter a valid YouTube or Instagram URL."
 
-    return render_template('index.html', video_id=video_id, download_link=download_link, video_type=video_type)
+    return render_template('index.html', video_id=video_id, download_link=download_link, video_type=video_type, error=error)
 
 @app.route('/download', methods=['POST'])
 def download_video():
     url = request.form.get('video_url', '')
     if not url:
-        return "No URL provided", 400
+        return render_template('index.html', error="No URL provided"), 400
 
     try:
         ydl_opts = {
             'format': 'best',
             'quiet': True,
+            'ratelimit': 1000000,  # in bytes per second
         }
 
         with yt_dlp.YoutubeDL(ydl_opts) as ydl:
@@ -79,7 +81,9 @@ def download_video():
                 }
             )
     except Exception as e:
-        return f"Error: {str(e)}", 500
+        # Pass the error to the template for display
+        error_message = f"Error: {str(e)}"
+        return render_template('index.html', error=error_message), 500
 
 # For static files
 @app.route('/<path:path>')

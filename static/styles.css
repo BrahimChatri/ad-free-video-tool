@@ -1,12 +1,29 @@
 /* Global Styles */
 body {
-    background-color: #121212;  /* Dark background */
+    background-color: #121212;
+    /* Dark background */
     color: white;
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
     padding-top: 20px;
     min-height: 100vh;
+    /* Ensure body covers full height */
+
+    background-image: url('background.svg');
+    /* Ensure path is correct */
+    background-repeat: no-repeat;
+    background-size: cover;
+    /* Adjust background size to cover the page */
+    background-position: center center;
+    /* Center the background image */
+    height: 100%;
+    /* Ensures the body fills the screen */
+
+    /* Prevent elements from covering the background */
+    position: relative;
+    z-index: 0;
+    /* Set lower z-index for body background */
 }
 
 .container {
@@ -22,7 +39,7 @@ body {
     flex-direction: column;
     align-items: center;
     padding: 2rem;
-    background-color: #000000;
+    /*background-color: #000000;*/
     color: #ffffff;
     min-height: 100vh;
 }
@@ -100,7 +117,8 @@ body {
     position: relative;
     width: 70%;
     max-width: 100%;
-    padding-bottom: 56.25%; /* Maintain 16:9 aspect ratio */
+    padding-bottom: 56.25%;
+    /* Maintain 16:9 aspect ratio */
     margin-top: 2rem;
 }
 
@@ -108,7 +126,8 @@ body {
     position: absolute;
     top: 0;
     left: 50%;
-    transform: translateX(-50%); /* Center horizontally */
+    transform: translateX(-50%);
+    /* Center horizontally */
     width: 100%;
     height: 100%;
     border-radius: 10px;
@@ -117,7 +136,19 @@ body {
 /* Larger video on mobile */
 @media (max-width: 768px) {
     .embed-video-container iframe {
-        width: 130%; /* Increase width for mobile */
-        height: 130%; /* Increase height for mobile */
+        width: 130%;
+        /* Increase width for mobile */
+        height: 130%;
+        /* Increase height for mobile */
     }
+}
+
+/* ERROR messages */
+.error-message {
+    background-color: #f8d7da;
+    color: #721c24;
+    padding: 10px;
+    border: 1px solid #f5c6cb;
+    margin-bottom: 15px;
+    border-radius: 5px;
 }
