@@ -61,43 +61,57 @@ body {
 
 /* Input Field Styling */
 .embed-input {
-    padding: 0.6rem;
-    width: 150%;
+    padding: 0.8rem;
+    width: 90%;
     max-width: 500px;
     border-radius: 5px;
     border: 1px solid #444;
     background-color: #222;
     color: #fff;
-    margin-bottom: 1rem;
+    margin-right: 15rem;
+    margin-bottom: 1.2rem;
 }
 
 /* Button Styling */
-.embed-button {
+.watch-button {
     padding: 0.5rem 1rem;
-    border-radius: 5px;
+    border-radius: 10px;
     background-color: #007BFF;
     color: #fff;
     border: none;
     cursor: pointer;
     margin-bottom: 1.5rem;
     font-size: 1rem;
+    margin-right: 0.9rem;
 }
 
-.Playlist-button {
+.download-button {
     padding: 0.5rem 1rem;
-    border-radius: 5px;
-    background-color: #069446;
+    border-radius: 10px;
+    background-color: #007BFF;
     color: #fff;
     border: none;
     cursor: pointer;
     margin-bottom: 1.5rem;
+    font-size: 1rem;
+    margin-left: -0.7rem;
+}
+
+.Playlist-button {
+    padding: 0.5rem 1rem;
+    border-radius: 10px;
+    background-color: #069446;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    margin-right: 0.7rem;
     /* Adds space below the button */
     font-size: 1rem;
     display: inline-block;
     /* Ensures it's treated as a block element for spacing */
 }
 
-.embed-button:hover {
+.download-button:hover {
     background-color: #0056b3;
 }
 
@@ -112,7 +126,7 @@ body {
         font-size: 1rem;
     }
 
-    .embed-button {
+    .download-button {
         font-size: 1rem;
         padding: 0.5rem 0.8rem;
     }
