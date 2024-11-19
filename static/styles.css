@@ -207,3 +207,32 @@ footer a:hover {
     color: #005a7a;
     /* Change link hover color */
 }
+
+/* Custom scrollbar for Webkit browsers */
+::-webkit-scrollbar {
+    width: 12px;
+    /* Width of the vertical scrollbar */
+    height: 12px;
+    /* Height of the horizontal scrollbar */
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: #555;
+    /* Color of the scrollbar thumb */
+    border-radius: 6px;
+    /* Roundness of the scrollbar thumb */
+    border: 3px solid transparent;
+    /* Creates space between thumb and track */
+}
+
+::-webkit-scrollbar-track {
+    background: #382a2a;
+    /* Background color of the scrollbar track */
+    border-radius: 6px;
+    /* Roundness of the scrollbar track */
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #333;
+    /* Color of the thumb when hovered */
+}
