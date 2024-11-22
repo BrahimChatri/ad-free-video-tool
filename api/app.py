@@ -3,6 +3,7 @@ import yt_dlp
 import re
 from pathlib import Path
 
+
 # Update template directory for Vercel
 app = Flask(__name__, static_folder='../static')
 template_dir = Path(__file__).parent.parent / "templates"
@@ -51,28 +52,30 @@ def download_video():
         return render_template('index.html', error="No URL provided"), 400
 
     try:
+        # Options for yt-dlp
         ydl_opts = {
             'format': 'best',
             'quiet': True,
             'ratelimit': 1000000,  # in bytes per second
+            'outtmpl': '/tmp/%(id)s.%(ext)s',  # Output to a temporary file
         }
 
         with yt_dlp.YoutubeDL(ydl_opts) as ydl:
-            info_dict = ydl.extract_info(url, download=False)
-            video_url = info_dict['url']
+            # Extract video info without downloading
+            info_dict = ydl.extract_info(url, download=True)  # Download the video
             video_title = info_dict.get('title', 'video').replace(" ", "_")
             video_ext = info_dict.get('ext', 'mp4')
+            video_file = f"/tmp/{info_dict['id']}.{video_ext}"
 
+            # After downloading, we can create a temporary file and return it
             def generate():
-                with yt_dlp.YoutubeDL() as inner_ydl:
-                    response = inner_ydl.urlopen(video_url)
-                    chunk_size = 1024 * 1024
-                    while True:
-                        chunk = response.read(chunk_size)
-                        if not chunk:
-                            break
+                with open(video_file, 'rb') as f:
+                    chunk = f.read(1024 * 1024)  # Read in 1MB chunks
+                    while chunk:
                         yield chunk
+                        chunk = f.read(1024 * 1024)
 
+            # Return the file as a response (no large payload)
             return Response(
                 generate(),
                 mimetype=f"video/{video_ext}",
@@ -81,10 +84,9 @@ def download_video():
                 }
             )
     except Exception as e:
-        # Pass the error to the template for display
+        # Handle errors gracefully
         error_message = f"Error: {str(e)}"
         return render_template('index.html', error=error_message), 500
-    
 # root to watch full playlist    
 @app.route('/playlist', methods=['GET', 'POST'])
 def playlist():
