@@ -1,29 +1,29 @@
-/* Global Styles */
-body {
-    /*background-color: #121212;*/
-    /* Dark background */
-    color: white;
-    font-family: Arial, sans-serif;
+* {
+    box-sizing: border-box;
     margin: 0;
     padding: 0;
-    padding-top: 20px;
-    min-height: 100vh;
-    /* Ensure body covers full height */
+    max-width: 100%;
+}
 
+html,
+body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+}
+
+
+body {
+    color: white;
+    font-family: Arial, sans-serif;
+    min-height: 100vh;
     background-image: url('background.svg');
-    /* Ensure path is correct */
     background-repeat: no-repeat;
     background-size: cover;
-    /* Adjust background size to cover the page */
     background-position: center center;
-    /* Center the background image */
-    height: 100%;
-    /* Ensures the body fills the screen */
-
-    /* Prevent elements from covering the background */
-    position: relative;
-    z-index: 0;
-    /* Set lower z-index for body background */
+    display: flex;
+    flex-direction: column;
 }
 
 .container {
@@ -33,15 +33,13 @@ body {
     text-align: center;
 }
 
-/* Embed Video Container */
 .embed-container {
+    flex: 1 0 auto;
     display: flex;
     flex-direction: column;
     align-items: center;
+    width: 100%;
     padding: 2rem;
-    /*background-color: #000000;*/
-    color: #ffffff;
-    min-height: 100vh;
 }
 
 .embed-heading {
@@ -59,49 +57,126 @@ body {
     line-height: 1.5;
 }
 
-/* Input Field Styling */
+.input-container {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
 .embed-input {
-    padding: 0.6rem;
-    width: 150%;
+    padding: 0.8rem;
+    width: 100%;
     max-width: 500px;
     border-radius: 5px;
     border: 1px solid #444;
     background-color: #222;
     color: #fff;
-    margin-bottom: 1rem;
+    margin-bottom: 1.2rem;
 }
 
-/* Button Styling */
-.embed-button {
+.form-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 1rem;
+    width: 100%;
+}
+
+.watch-button,
+.download-button {
     padding: 0.5rem 1rem;
-    border-radius: 5px;
+    border-radius: 10px;
     background-color: #007BFF;
     color: #fff;
     border: none;
     cursor: pointer;
-    margin-bottom: 1.5rem;
     font-size: 1rem;
 }
 
 .Playlist-button {
+    display: inline-block;
     padding: 0.5rem 1rem;
-    border-radius: 5px;
+    border-radius: 10px;
     background-color: #069446;
     color: #fff;
-    border: none;
-    cursor: pointer;
-    margin-bottom: 1.5rem;
-    /* Adds space below the button */
+    text-decoration: none;
     font-size: 1rem;
-    display: inline-block;
-    /* Ensures it's treated as a block element for spacing */
 }
 
-.embed-button:hover {
+.download-button:hover {
     background-color: #0056b3;
 }
 
-/* Responsive Styles */
+.embed-video-container {
+    position: relative;
+    width: 100%;
+    max-width: 800px;
+    padding-bottom: 56.25%;
+    margin-top: 2rem;
+}
+
+.embed-video-container iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: 10px;
+}
+
+.error-message {
+    background-color: #f8d7da;
+    color: #721c24;
+    padding: 10px;
+    border: 1px solid #f5c6cb;
+    margin-bottom: 15px;
+    border-radius: 5px;
+    max-width: 500px;
+}
+
+footer {
+    flex-shrink: 0;
+    width: 100%;
+    background-color: #dfaeae;
+    text-align: center;
+    padding: 10px;
+    font-size: 16px;
+    color: #edecf5;
+}
+
+footer a {
+    color: #ffffff;
+    text-decoration: none;
+    font-size: 18px;
+}
+
+footer a:hover {
+    text-decoration: underline;
+    color: #005a7a;
+}
+
+/* Custom scrollbar for Webkit browsers */
+::-webkit-scrollbar {
+    width: 12px;
+    height: 12px;
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: #555;
+    border-radius: 6px;
+    border: 3px solid transparent;
+}
+
+::-webkit-scrollbar-track {
+    background: #382a2a;
+    border-radius: 6px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #333;
+}
+
+/* Responsive Adjustments */
 @media (max-width: 1000px) {
     .embed-heading {
         font-size: 1.5rem;
@@ -112,12 +187,11 @@ body {
         font-size: 1rem;
     }
 
-    .embed-button {
+    .download-button {
         font-size: 1rem;
         padding: 0.5rem 0.8rem;
     }
 
-    /* Make the video container take up full width on mobile */
     .embed-video-container {
         width: 100%;
         max-width: 100%;
@@ -126,70 +200,13 @@ body {
     }
 }
 
-/* Default and Desktop Styles for Video */
-.embed-video-container {
-    position: relative;
-    width: 70%;
-    max-width: 100%;
-    padding-bottom: 56.25%;
-    /* Maintain 16:9 aspect ratio */
-    margin-top: 2rem;
-}
-
-.embed-video-container iframe {
-    position: absolute;
-    top: 0;
-    left: 50%;
-    transform: translateX(-50%);
-    /* Center horizontally */
-    width: 100%;
-    height: 100%;
-    border-radius: 10px;
-}
-
-/* Larger video on mobile */
 @media (max-width: 768px) {
-    .embed-video-container iframe {
-        width: 130%;
-        /* Increase width for mobile */
-        height: 130%;
-        /* Increase height for mobile */
+    .embed-container {
+        padding: 1rem;
     }
-}
 
-/* ERROR messages */
-.error-message {
-    background-color: #f8d7da;
-    color: #721c24;
-    padding: 10px;
-    border: 1px solid #f5c6cb;
-    margin-bottom: 15px;
-    border-radius: 5px;
-}
-
-footer {
-    position: relative;
-    bottom: 0;
-    width: 100%;
-    background-color: #dfaeae;
-    text-align: center;
-    padding: 10px;
-    font-size: 16px;
-    /* Adjust the font size */
-    color: #edecf5;
-    /* Change to your preferred text color */
-}
-
-footer a {
-    color: #ffffff;
-    /* Change link color */
-    text-decoration: none;
-    font-size: 18px;
-    /* Adjust font size for links */
-}
-
-footer a:hover {
-    text-decoration: underline;
-    color: #005a7a;
-    /* Change link hover color */
+    .embed-video-container iframe {
+        width: 100%;
+        height: 100%;
+    }
 }

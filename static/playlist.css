@@ -1,4 +1,15 @@
-/* Global Styles */
+* {
+    box-sizing: border-box;
+}
+
+html,
+body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+}
+
 body {
     color: white;
     font-family: Arial, sans-serif;
@@ -10,7 +21,8 @@ body {
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center center;
-    height: 100%;
+    display: flex;
+    flex-direction: column;
     position: relative;
     z-index: 0;
 }
@@ -22,7 +34,8 @@ body {
     align-items: center;
     padding: 2rem;
     color: #ffffff;
-    min-height: 100vh;
+    flex-grow: 1;
+    width: 100%;
 }
 
 .embed-heading {
@@ -40,31 +53,43 @@ body {
     line-height: 1.5;
 }
 
-/* Input Field Styling */
+.input-container {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
 .embed-input {
-    padding: 0.6rem;
-    width: 115%;
+    padding: 0.8rem;
+    width: 100%;
     max-width: 500px;
     border-radius: 5px;
     border: 1px solid #444;
     background-color: #222;
     color: #fff;
-    margin-bottom: 1rem;
+    margin-bottom: 1.2rem;
 }
 
-/* Button Styling */
-.embed-button {
+
+.form-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 1rem;
+    width: 100%;
+}
+
+.watch-button {
     padding: 0.5rem 1rem;
-    border-radius: 5px;
+    border-radius: 10px;
     background-color: #007BFF;
     color: #fff;
     border: none;
     cursor: pointer;
-    margin-bottom: 1.5rem;
     font-size: 1rem;
 }
 
-.embed-button:hover {
+.watch-button:hover {
     background-color: #0056b3;
 }
 
@@ -79,7 +104,7 @@ body {
         font-size: 1rem;
     }
 
-    .embed-button {
+    .watch-button {
         font-size: 1rem;
         padding: 0.5rem 0.8rem;
     }
@@ -115,8 +140,8 @@ body {
 /* Larger video on mobile */
 @media (max-width: 768px) {
     .embed-video-container iframe {
-        width: 130%;
-        height: 130%;
+        width: 100%;
+        height: 100%;
     }
 }
 
@@ -131,14 +156,13 @@ body {
 }
 
 footer {
-    position: relative;
-    bottom: 0;
     width: 100%;
     background-color: #dfaeae;
     text-align: center;
     padding: 10px;
     font-size: 16px;
     color: #edecf5;
+    flex-shrink: 0;
 }
 
 footer a {

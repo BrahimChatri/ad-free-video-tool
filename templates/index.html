@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Watch and Download Videos</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}?v={{ css_timestamp }}">
 
     <!-- Open Graph Meta Tags -->
     <meta property="og:title" content="Watch and Download Videos Without Ads" />
@@ -37,12 +37,6 @@
             <strong>Note:</strong> If the download fails, please try again later as we are improving the service.
         </p>
 
-
-        <!-- "Watch Playlist" Button -->
-        <div class="form-buttons">
-            <a href="/playlist" class="Playlist-button">Watch Playlist</a>
-        </div>
-
         <!-- Display Error Message if any -->
         {% if error %}
         <div class="error-message">
@@ -62,14 +56,18 @@
             <!-- Watch Video -->
             <form method="POST" action="/">
                 <input type="hidden" name="video_url" id="embed_url">
-                <button type="submit" class="embed-button" onclick="setEmbedUrl()">Watch Video</button>
+                <button type="submit" class="watch-button" onclick="setEmbedUrl()">Watch Video</button>
             </form>
 
             <!-- Download Video -->
             <form method="POST" action="/download">
                 <input type="hidden" name="video_url" id="download_url">
-                <button type="submit" class="embed-button" onclick="setDownloadUrl()">Download Video</button>
+                <button type="submit" class="download-button" onclick="setDownloadUrl()">Download Video</button>
             </form>
+        </div>
+        <!-- "Watch Playlist" Button -->
+        <div class="form-buttons">
+            <a href="/playlist" class="Playlist-button">Watch Playlist</a>
         </div>
 
         <!-- Display Embedded Video -->

@@ -1,6 +1,6 @@
 from flask import Flask, render_template, request, send_file, Response
 import yt_dlp
-import re
+import re, os
 from pathlib import Path
 
 
@@ -13,6 +13,17 @@ app.template_folder = str(template_dir)
 YOUTUBE_SHORTS_REGEX = r'https:\/\/youtube\.com\/shorts\/([a-zA-Z0-9_-]+)\?'
 YOUTUBE_REGEX = r'(?:https?:\/\/(?:www\.)?youtube\.com\/(?:[^\/]+\/[^\?]+|(?:v|e(?:mbed)?)\/([^\/\?\&]+)|.*v=([^\/\?\&]+))|youtu\.be\/([^\/\?\&]+))'
 INSTAGRAM_REGEX = r'https:\/\/www\.instagram\.com\/reel\/([a-zA-Z0-9_-]+)\/'
+
+@app.context_processor
+def inject_timestamp():
+    # Get timestamps for both CSS files
+    styles_path = os.path.join(app.static_folder, 'styles.css')
+    playlist_path = os.path.join(app.static_folder, 'playlist.css')
+
+    styles_timestamp = str(int(os.path.getmtime(styles_path))) if os.path.exists(styles_path) else ''
+    playlist_timestamp = str(int(os.path.getmtime(playlist_path))) if os.path.exists(playlist_path) else ''
+
+    return {'css_timestamp': styles_timestamp, 'playlist_css_timestamp': playlist_timestamp}
 
 @app.route('/', methods=['GET', 'POST'])
 def home():
@@ -103,7 +114,6 @@ def playlist():
 
     return render_template('playlist.html', playlist_id=playlist_id, error=error)
 
-
 # For static files
 @app.route('/<path:path>')
 def static_proxy(path):
@@ -114,4 +124,4 @@ def static_proxy(path):
 
 # For development only
 # if __name__ == '__main__':
-#     app.run(debug=True)
+#     app.run(debug=True, use_reloader=True)
