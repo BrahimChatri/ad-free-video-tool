@@ -58,12 +58,12 @@ The backend uses `yt-dlp`, a command-line program to download videos from YouTub
 ## Folder Structure
 
 ```
-/watch-without-ads
+/ad-free-video-tool
     /api 
         /app.py           # The main Python file running the Flask app
     /static
         /styles.css       # Custom styles for the application
-        /playlist.cdd     # Custom styles for  /playlist \
+        /playlist.css     # Custom styles for  /playlist \
         /backgroud.svg    # Background image 
         /favicon.ico      # Favicon 
         /github-logo.svg  # Github logo for the footer
