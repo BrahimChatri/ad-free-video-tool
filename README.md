@@ -13,7 +13,7 @@ This is a simple web application built with Flask, allowing users to input YouTu
 
 To run the application, you will need to have the following installed:
 
-- Python 3.7+ 
+- Python 3.12
 - Flask
 - yt-dlp
 
@@ -42,7 +42,7 @@ pip install -r requirements.txt
 Run the Flask development server by executing:
 
 ```bash
-python app.py
+python api/app.py
 ```
 
 You should now be able to access the app by visiting `http://127.0.0.1:5000/` in your browser.
