@@ -4,21 +4,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Watch and Download Videos</title>
+    <title>Watch Videos Without Ads</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}?v={{ css_timestamp }}">
 
     <!-- Open Graph Meta Tags -->
-    <meta property="og:title" content="Watch and Download Videos Without Ads" />
-    <meta property="og:description"
-        content="Enter a YouTube or Instagram URL to watch the video without ads or download it directly. Easy and fast!" />
+    <meta property="og:title" content="Watch Videos Without Ads" />
+    <meta property="og:description" content="Enter a YouTube URL to watch the video without ads. Easy and fast!" />
     <meta property="og:image" content="{{ url_for('static', filename='images/preview-image.jpg') }}" />
     <meta property="og:url" content="{{ request.url }}" />
     <meta property="og:type" content="website" />
 
     <!-- Twitter Card Meta Tags -->
-    <meta name="twitter:title" content="Watch and Download Videos Without Ads" />
-    <meta name="twitter:description"
-        content="Enter a YouTube or Instagram URL to watch the video without ads or download it directly. Easy and fast!" />
+    <meta name="twitter:title" content="Watch Videos Without Ads" />
+    <meta name="twitter:description" content="Enter a YouTube URL to watch the video without ads. Easy and fast!" />
     <meta name="twitter:image" content="{{ url_for('static', filename='images/preview-image.jpg') }}" />
     <meta name="twitter:card" content="summary_large_image" />
     <link rel="icon" href="{{ url_for('static', filename='favicon.ico') }}" type="image/x-icon">
@@ -26,15 +24,15 @@
 
 <body>
     <div class="embed-container">
-        <h1 class="embed-heading">Watch YouTube or Instagram Videos Without Ads</h1>
+        <h1 class="embed-heading">Watch YouTube Videos Without Ads</h1>
         <p class="embed-description">
-            Enter a valid YouTube or Instagram URL below to watch the video without ads or download it directly.
+            Enter a valid YouTube URL below to watch the video without ads.
             <br />
-            Click <strong>Watch Video</strong> to view the video without ads, or <strong>Download</strong> to save it.
+            Click <strong>Watch Video</strong> to view the video without any interruptions from ads.
             <br /><br />
             <strong>If you want to watch a full playlist, click on "Watch Playlist".</strong>
             <br />
-            <strong>Note:</strong> If the download fails, please try again later as we are improving the service.
+            <strong>Note:</strong> This service helps you enjoy YouTube content without advertisements.
         </p>
 
         <!-- Display Error Message if any -->
@@ -46,23 +44,15 @@
 
         <!-- Video URL Input -->
         <div class="input-container">
-            <input type="text" id="video_url" name="video_url" class="embed-input"
-                placeholder="Enter YouTube or Instagram URL" value="{{ download_link if download_link else '' }}"
-                autocomplete="off">
+            <input type="text" id="video_url" name="video_url" class="embed-input" placeholder="Enter YouTube URL"
+                value="{{ download_link if download_link else '' }}" autocomplete="off">
         </div>
 
-        <!-- Buttons for Watch and Download -->
+        <!-- Watch Video Button -->
         <div class="form-buttons">
-            <!-- Watch Video -->
             <form method="POST" action="/">
                 <input type="hidden" name="video_url" id="embed_url">
                 <button type="submit" class="watch-button" onclick="setEmbedUrl()">Watch Video</button>
-            </form>
-
-            <!-- Download Video -->
-            <form method="POST" action="/download">
-                <input type="hidden" name="video_url" id="download_url">
-                <button type="submit" class="download-button" onclick="setDownloadUrl()">Download Video</button>
             </form>
         </div>
         <!-- "Watch Playlist" Button -->
@@ -101,11 +91,6 @@
             document.getElementById('embed_url').value = videoUrl;
         }
 
-        // Sync input value for Download Video
-        function setDownloadUrl() {
-            const videoUrl = document.getElementById('video_url').value.trim();
-            document.getElementById('download_url').value = videoUrl;
-        }
     </script>
 </body>
 
