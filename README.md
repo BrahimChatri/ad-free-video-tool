@@ -1,21 +1,24 @@
+Got it 👍 — since you removed the **download** and **Instagram** functions from your tool, here’s your cleaned-up **README** version that reflects only the YouTube “watch without ads” feature.
 
-# Watch & Download Tool (Without Ads)
+---
 
-This is a simple web application built with Flask, allowing users to input YouTube or Instagram URLs to watch videos without ads and download them directly to their devices. The app uses `yt-dlp` to download the videos and provides an ad-free viewing experience.
+# Watch Without Ads Tool
+
+This is a simple web application built with Flask, allowing users to input **YouTube video URLs** to watch videos without ads.
+The app uses `yt-dlp` to fetch and stream the video content directly — providing a smooth, ad-free experience.
 
 ## Features
 
-- **Watch Videos Without Ads**: Users can input valid YouTube or Instagram video URLs to watch the video without interruptions from ads.
-- **Download Videos**: Users can download YouTube or Instagram videos directly to their device by clicking the "Download Video" button.
-- **Responsive Design**: The application is fully responsive and works well on both desktop and mobile devices.
+* **Watch Videos Without Ads**: Users can input valid YouTube video URLs to watch videos without interruptions from ads.
+* **Responsive Design**: Works seamlessly on both desktop and mobile devices.
 
 ## Requirements
 
-To run the application, you will need to have the following installed:
+To run the application, you’ll need the following installed:
 
-- Python 3.12
-- Flask
-- yt-dlp
+* Python 3.12
+* Flask
+* yt-dlp
 
 ## Installation
 
@@ -28,14 +31,13 @@ cd watch-without-ads
 
 ### 2. Install dependencies
 
-It is recommended to create a virtual environment first.
+It’s recommended to create a virtual environment first.
 
 ```bash
 python -m venv venv
-venv\Scripts\activate # if you wanna use vertual envirment 
+venv\Scripts\activate  # if you want to use a virtual environment
 pip install -r requirements.txt
 ```
-
 
 ### 3. Running the App
 
@@ -45,48 +47,45 @@ Run the Flask development server by executing:
 python api/app.py
 ```
 
-You should now be able to access the app by visiting `http://127.0.0.1:5000/` in your browser.
+Then open your browser and visit:
+
+```
+http://127.0.0.1:5000/
+```
 
 ## How It Works
 
-1. **Input URL**: The user enters a valid YouTube or Instagram video URL.
-2. **Watch Without Ads**: The application streams the video in a way that avoids any interruptions from ads.
-3. **Download**: The user can click the "Download Video" button to start the video download to their device.
-
-The backend uses `yt-dlp`, a command-line program to download videos from YouTube and other sites, to fetch and serve the video file directly to the user's device.
+1. **Input URL**: The user enters a valid YouTube video URL.
+2. **Watch Without Ads**: The application streams the video directly using `yt-dlp`, bypassing all ads and interruptions.
 
 ## Folder Structure
 
 ```
 /ad-free-video-tool
     /api 
-        /app.py           # The main Python file running the Flask app
+        /app.py           # The main Flask application
     /static
-        /styles.css       # Custom styles for the application
-        /playlist.css     # Custom styles for  /playlist \
-        /backgroud.svg    # Background image 
+        /styles.css       # Custom styles
+        /playlist.css     # Styles for the /playlist page
+        /background.svg   # Background image 
         /favicon.ico      # Favicon 
-        /github-logo.svg  # Github logo for the footer
+        /github-logo.svg  # GitHub logo for the footer
     /templates
-        index.html        # Main HTML page with video streaming and download functionality
-        playlist.html     # Main HTML for /playlist page
-    requirements.txt      # List of Python dependencies
+        index.html        # Main HTML page for video streaming
+        playlist.html     # HTML page for the /playlist route
+    requirements.txt      # Python dependencies
     README.md             # This file
-    LICENSE               # MIT License file 
-    vercel.json           # Configuration file for vercel deployments
+    LICENSE               # MIT License
+    vercel.json           # Configuration for Vercel deployment
 ```
 
 ## Troubleshooting
 
-### Slow Downloads
-
-If the video downloads are slow, it might be due to network conditions or the server's limitations. Ensure that your internet connection is stable, and consider configuring the download options to fetch the best format.
-
 ### Video URL Not Valid
 
-If the video URL is not recognized, ensure that it is a valid YouTube or Instagram URL. The app currently only supports these two platforms.
+If the video URL is not recognized, ensure it is a valid **YouTube** link.
+Currently, the app only supports YouTube videos.
 
 ## License
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
+This project is licensed under the MIT License — see the [LICENSE](LICENSE) file for details.
